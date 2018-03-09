@@ -8,7 +8,7 @@ const mainUrl = 'https://www.timeoverflow.org/';
 export default class App extends React.Component {
   componentDidMount() {}
 
-  registerForPushNotifications() {
+  registerForPushNotifications = async () => {
     const token = await registerForPushNotificationsAsync();
 
     this.runRemoteTokenStoring(token);
