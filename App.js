@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, WebView } from 'react-native';
 import { registerForPushNotificationsAsync } from './lib/pushNotifications';
 
 const loggedInUrlRegex = /members/;
-const mainUrl = 'https://www.timeoverflow.org/';
+const mainUrl = 'https://staging.timeoverflow.org/';
 
 export default class App extends React.Component {
   componentDidMount() {}
