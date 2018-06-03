@@ -2,10 +2,10 @@
   "expo": {
     "name": "TimeOverflow",
     "description": "A time banking system.",
-    "slug": "time-overflow-app",
+    "slug": "time-overflow",
     "sdkVersion": "24.0.0",
     "platforms": ["ios", "android"],
-    "version": "1.0.0",
+    "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/timeoverflow.png",
     "splash": {
