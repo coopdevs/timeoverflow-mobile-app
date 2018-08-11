@@ -3,7 +3,13 @@ import { StyleSheet, Text, View, WebView } from 'react-native';
 import { Constants } from 'expo';
 import { injectCustomJavaScript } from './lib/injectCustomJavaScript';
 
-const mainUrl = 'https://www.timeoverflow.org/';
+const mainUrl = () => {
+  const { releaseChannel } = Expo.Constants.manifest;
+
+  return (releaseChannel === 'staging') ?
+    'https://staging.timeoverflow.org/' :
+    'https://www.timeoverflow.org/';
+}
 
 export default class App extends React.Component {
   onNavigationStateChange({ url }) {
@@ -14,7 +20,7 @@ export default class App extends React.Component {
     return (
       <WebView
         ref={ref => (this.webview = ref)}
-        source={{ uri: mainUrl }}
+        source={{ uri: mainUrl() }}
         style={{marginTop: Constants.statusBarHeight}}
         onNavigationStateChange={this.onNavigationStateChange.bind(this)}
         scalesPageToFit={false}
