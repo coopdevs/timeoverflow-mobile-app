@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, WebView } from 'react-native';
 import { Constants } from 'expo';
 import { injectCustomJavaScript } from './lib/injectCustomJavaScript';
 
-const mainUrl = 'https://timeoverflow.org/';
+const mainUrl = 'https://www.timeoverflow.org/';
 
 export default class App extends React.Component {
   onNavigationStateChange({ url }) {
