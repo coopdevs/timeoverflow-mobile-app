@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, WebView } from 'react-native';
+import { WebView, BackHandler } from 'react-native';
 import { Constants, Notifications } from 'expo';
-import { injectCustomJavaScript } from './lib/injectCustomJavaScript';
+import injectCustomJavaScript from './lib/injectCustomJavaScript';
+import handleExternalLinks from './lib/handleExternalLinks';
 
 const baseUrl = () => {
   const { releaseChannel } = Expo.Constants.manifest;
@@ -24,7 +25,6 @@ export default class App extends React.Component {
 
   // Check the notification attributes:
   // https://docs.expo.io/versions/latest/guides/push-notifications#notification-handling-timing
-  //
   onReceiveNotification = (notification = {}) => {
     if (notification.origin === 'selected') {
       const { data } = notification;
@@ -36,8 +36,21 @@ export default class App extends React.Component {
     }
   }
 
-  onNavigationStateChange({ url }) {
+  onNavigationStateChange = ({ url }) => {
     injectCustomJavaScript(this.webview, url);
+    handleExternalLinks(this.webview, url)
+  }
+
+  onBackPress = () => {
+    this.webview.goBack();
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
   }
 
   render() {
@@ -46,7 +59,7 @@ export default class App extends React.Component {
         ref={ref => (this.webview = ref)}
         source={{ uri: this.state.currentUrl }}
         style={{marginTop: Constants.statusBarHeight}}
-        onNavigationStateChange={this.onNavigationStateChange.bind(this)}
+        onNavigationStateChange={this.onNavigationStateChange}
         scalesPageToFit={false}
       />
     );
