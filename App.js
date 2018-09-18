@@ -21,6 +21,11 @@ export default class App extends React.Component {
 
   componentDidMount() {
     this._notificationSubscription = Notifications.addListener(this.onReceiveNotification);
+    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
   }
 
   // Check the notification attributes:
@@ -43,14 +48,8 @@ export default class App extends React.Component {
 
   onBackPress = () => {
     this.webview.goBack();
-  }
 
-  componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
-  }
-
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+    return true;
   }
 
   render() {
