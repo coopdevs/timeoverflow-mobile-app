@@ -19,7 +19,8 @@
       "bundleIdentifier": "org.timeoverflow.mobileapp"
     },
     "android": {
-      "package": "org.timeoverflow.mobileapp"
+      "package": "org.timeoverflow.mobileapp",
+      "versionCode": 2
     }
   }
 }
