@@ -21,9 +21,6 @@
     "android": {
       "package": "org.timeoverflow.mobileapp",
       "versionCode": 3
-    },
-    "notification": {
-      "icon": "./assets/notifications.png"
     }
   }
 }
