@@ -20,7 +20,7 @@
     },
     "android": {
       "package": "org.timeoverflow.mobileapp",
-      "versionCode": 2
+      "versionCode": 3
     },
     "notification": {
       "icon": "./assets/notifications.png"
