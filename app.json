@@ -3,7 +3,7 @@
     "name": "TimeOverflow",
     "description": "A time banking system.",
     "slug": "time-overflow",
-    "sdkVersion": "24.0.0",
+    "sdkVersion": "31.0.0",
     "platforms": ["ios", "android"],
     "version": "0.2.3",
     "orientation": "portrait",
@@ -20,10 +20,8 @@
     },
     "android": {
       "package": "org.timeoverflow.mobileapp",
-      "versionCode": 4
-    },
-    "notification": {
-      "icon": "./assets/notifications.png"
+      "versionCode": 5,
+      "permissions": []
     }
   }
 }
