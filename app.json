@@ -20,7 +20,7 @@
     },
     "android": {
       "package": "org.timeoverflow.mobileapp",
-      "versionCode": 7
+      "versionCode": 8
     }
   }
 }
