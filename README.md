@@ -12,10 +12,10 @@ $ git clone git@github.com:coopdevs/timeoverflow-mobile-app.git
 $ cd timeoverflow-mobile-app
 ```
 
-2. Install Expo's CLI node package:
+2. Install dependencies
 
 ```
-$ npm i -g expo-cli
+$ npm install
 ```
 
 More details: https://docs.expo.dev/get-started/installation/.
@@ -24,17 +24,23 @@ More details: https://docs.expo.dev/get-started/installation/.
 
 To run the app on your machine follow these steps:
 
-1. Run Expo!
+1. Log in to Coopdevs' Expo account:
 
 ```
-$ expo start
+$ npx expo login
 ```
 
-2. The previous command will output a QR code which will be used later to access the app from your phone.
+2. Run Expo!
 
-3. Install Expo's client on your phone: https://docs.expo.dev/get-started/installation/#2-expo-go-app-for-ios-and
+```
+$ npx expo start
+```
 
-4. Open the Expo app and scan the QR code. Now you are running the Time Overflow app on your phone! Make any change on the project and the Expo mobile client will automatically reload the changes. Enjoy!
+3. The previous command will output a QR code which will be used later to access the app from your phone.
+
+4. Install Expo's client on your phone: https://docs.expo.dev/get-started/installation/#2-expo-go-app-for-ios-and
+
+5. Open the Expo app and scan the QR code. Now you are running the Time Overflow app on your phone! Make any change on the project and the Expo mobile client will automatically reload the changes. Enjoy!
 
 ## Building a standalone app
 
