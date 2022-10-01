@@ -5,7 +5,11 @@ import { StatusBar } from 'expo-status-bar';
 import { WebView } from 'react-native-webview';
 import registerForPushNotificationsAsync from './lib/pushNotifications';
 import { StyleSheet, Text, View, BackHandler } from 'react-native';
+import Constants from "expo-constants";
 import * as Updates from 'expo-updates';
+
+// matches the background color of the webapp's navbar
+const navbarStaticTopColor = "rgba(39,151,175,0.9)";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -108,6 +112,7 @@ export default function App() {
 
   return (
     <>
+      <StatusBar style="light" backgroundColor={navbarStaticTopColor} />
       <WebView
         ref={(ref) => (webViewRef.current = ref)}
         style={styles.container}
@@ -121,5 +126,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: Constants.statusBarHeight,
   },
 });
