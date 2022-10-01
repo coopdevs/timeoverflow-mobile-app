@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { WebView } from 'react-native-webview';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, BackHandler } from 'react-native';
 import * as Updates from 'expo-updates';
 
 const baseUrl = () => {
@@ -18,10 +18,28 @@ export default function App() {
 
   const webViewRef = useRef(null);
 
+  useEffect(() => {
+    const backAction = () => {
+      console.log("Back button pressed");
+
+      try {
+        webViewRef.current?.goBack();
+      } catch (err) {
+        console.log("[handleBackButtonPress] Error : ", err.message);
+      } finally {
+        return true;
+      }
+    };
+
+    const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+
+    return () => backHandler.remove();
+  }, []);
+
   return (
     <>
       <WebView
-        ref={ref => webViewRef.current = ref}
+        ref={(ref) => (webViewRef.current = ref)}
         style={styles.container}
         source={{ uri: currentUrl }}
         scalesPageToFit={false}
