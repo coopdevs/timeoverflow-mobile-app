@@ -2,19 +2,16 @@ import React, { useState, useEffect, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { WebView } from 'react-native-webview';
 import { StyleSheet, Text, View } from 'react-native';
-import Constants from 'expo-constants';
+import * as Updates from 'expo-updates';
 
 const baseUrl = () => {
-  const { releaseChannel } = Constants.manifest;
-  console.log("Constants.manifest = ");
-  console.log(Constants.manifest);
-  console.log("release channel = " + releaseChannel);
+  const { releaseChannel } = Updates;
+  console.log('releaseChannel =', releaseChannel);
 
-  // return (releaseChannel === 'staging') ?
-    // 'https://staging.timeoverflow.org' :
-    // 'https://www.timeoverflow.org';
-  return 'https://staging.timeoverflow.org';
-}
+  return releaseChannel === 'production'
+    ? 'https://www.timeoverflow.org'
+    : 'https://staging.timeoverflow.org';
+};
 
 export default function App() {
   const [currentUrl, setCurrentUrl] = useState(baseUrl());
