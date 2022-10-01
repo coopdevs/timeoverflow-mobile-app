@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as Notifications from "expo-notifications";
+import * as WebBrowser from "expo-web-browser";
 import { StatusBar } from 'expo-status-bar';
 import { WebView } from 'react-native-webview';
 import registerForPushNotificationsAsync from './lib/pushNotifications';
@@ -68,6 +69,17 @@ export default function App() {
     };
   }, []);
 
+  const handleExternalLinks = (navState) => {
+    const { url, canGoBack } = navState;
+
+    if (!url.includes("timeoverflow")) {
+      if (canGoBack) {
+        webViewRef.current?.goBack();
+      }
+      WebBrowser.openBrowserAsync(url);
+    }
+  };
+
   const handleLoggedInPage = (webview, token) => {
     webview?.injectJavaScript(
       `window.TimeOverflowRegisterExpoDeviceToken(\'${token}\');`
@@ -91,6 +103,7 @@ export default function App() {
     const { url } = navState;
     setCurrentUrl(url);
     injectCustomJavaScript(url);
+    handleExternalLinks(navState);
   };
 
   return (
