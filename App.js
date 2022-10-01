@@ -49,9 +49,12 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then((token) =>
+    const getToken = async () => {
+      const token = await registerForPushNotificationsAsync();
       setExpoPushToken(token)
-    );
+    };
+
+    getToken();
 
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
