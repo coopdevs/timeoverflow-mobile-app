@@ -6,7 +6,6 @@ import { WebView } from 'react-native-webview';
 import registerForPushNotificationsAsync from './lib/pushNotifications';
 import { StyleSheet, Text, View, BackHandler } from 'react-native';
 import Constants from "expo-constants";
-import * as Updates from 'expo-updates';
 
 // matches the background color of the webapp's navbar
 const navbarStaticTopColor = "rgba(39,151,175,0.9)";
@@ -20,12 +19,8 @@ Notifications.setNotificationHandler({
 });
 
 const baseUrl = () => {
-  const { releaseChannel } = Updates;
-  console.log('releaseChannel =', releaseChannel);
-
-  return releaseChannel === 'production'
-    ? 'https://www.timeoverflow.org'
-    : 'https://staging.timeoverflow.org';
+  console.log('extra.baseUrl =', Constants.expoConfig.extra.baseUrl);
+  return Constants.expoConfig.extra.baseUrl || "https://staging.timeoverflow.org";
 };
 
 export default function App() {

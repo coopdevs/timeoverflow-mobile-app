@@ -8,11 +8,15 @@
       "distribution": "internal"
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "BASE_URL": "https://staging.timeoverflow.org"
+      }
     },
-    "production": {},
-    "staging": {
-      "channel": "staging"
+    "production": {
+      "env": {
+        "BASE_URL": "https://www.timeoverflow.org"
+      }
     }
   },
   "submit": {
