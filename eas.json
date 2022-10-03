@@ -7,13 +7,15 @@
       "developmentClient": true,
       "distribution": "internal"
     },
-    "preview": {
+    "staging": {
       "distribution": "internal",
+      "channel": "staging",
       "env": {
         "BASE_URL": "https://staging.timeoverflow.org"
       }
     },
     "production": {
+      "channel": "production",
       "env": {
         "BASE_URL": "https://www.timeoverflow.org"
       }
