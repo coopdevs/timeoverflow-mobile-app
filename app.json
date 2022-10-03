@@ -30,7 +30,7 @@
     },
     "android": {
       "package": "org.timeoverflow.mobileapp",
-      "versionCode": 9
+      "versionCode": 10
     },
     "extra": {
       "eas": {
