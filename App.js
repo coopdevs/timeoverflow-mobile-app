@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as Notifications from "expo-notifications";
-import * as WebBrowser from "expo-web-browser";
 import { StatusBar } from 'expo-status-bar';
 import { WebView } from 'react-native-webview';
 import registerForPushNotificationsAsync from './lib/pushNotifications';
 import { StyleSheet, Text, View, BackHandler } from 'react-native';
 import Constants from "expo-constants";
+import handleExternalLinks from './lib/handleExternalLinks';
+import injectCustomJavaScript from './lib/injectCustomJavaScript.js';
 
 // matches the background color of the webapp's navbar
 const navbarStaticTopColor = "rgba(39,151,175,0.9)";
@@ -68,41 +69,13 @@ export default function App() {
     };
   }, []);
 
-  const handleExternalLinks = (navState) => {
-    const { url, canGoBack } = navState;
-
-    if (!url.includes("timeoverflow")) {
-      if (canGoBack) {
-        webViewRef.current?.goBack();
-      }
-      WebBrowser.openBrowserAsync(url);
-    }
-  };
-
-  const handleLoggedInPage = (webview, token) => {
-    webview?.injectJavaScript(
-      `window.TimeOverflowRegisterExpoDeviceToken(\'${token}\');`
-    );
-  };
-
-  const handleLoginPage = (webview) => {
-    webview?.injectJavaScript("$('#user_remember_me').prop('checked', true);");
-  };
-
-  const injectCustomJavaScript = (url) => {
-    if (/members/.test(url)) {
-      handleLoggedInPage(webViewRef.current, expoPushToken);
-    } else if (/sign_in|login/.test(url)) {
-      handleLoginPage(webViewRef.current);
-    }
-  };
-
-  const handleStateChange = (navState) => {
+  const handleStateChange = async (navState) => {
     console.log('state change =', navState);
     const { url } = navState;
+
     setCurrentUrl(url);
-    injectCustomJavaScript(url);
-    handleExternalLinks(navState);
+    injectCustomJavaScript(webViewRef, expoPushToken, url);
+    await handleExternalLinks(url, webViewRef);
   };
 
   return (
