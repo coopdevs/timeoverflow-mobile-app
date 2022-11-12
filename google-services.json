@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "263822280108",
+    "project_id": "timeoverflow-6d636",
+    "storage_bucket": "timeoverflow-6d636.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263822280108:android:6e744c72a4c2a8b88ca609",
+        "android_client_info": {
+          "package_name": "org.timeoverflow.mobileapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263822280108-rnkia87gfceig3n8gnfmb3ujhmqe8b8n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1xu1p1sOP3mCNMpg8OJObBSwA4xsFsWk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263822280108-rnkia87gfceig3n8gnfmb3ujhmqe8b8n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

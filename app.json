@@ -29,6 +29,7 @@
       "bundleIdentifier": "org.timeoverflow.mobileapp"
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "package": "org.timeoverflow.mobileapp",
       "versionCode": 20
     },
