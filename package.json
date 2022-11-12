@@ -20,6 +20,9 @@
     "react-native-webview": "11.23.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "eslint": "^8.27.0",
+    "eslint-plugin-react": "^7.31.10",
+    "eslint-plugin-unused-imports": "^2.0.0"
   }
 }
