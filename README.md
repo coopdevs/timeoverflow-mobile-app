@@ -44,19 +44,32 @@ $ npx expo start
 
 ## Building a standalone app
 
-Run `exp build:android` or `exp build:ios`.
+We use [EAS Build](https://docs.expo.dev/build/introduction/), Expo's hosted service for building app binaries. It greatly simplifies the process by building and signing the app with our credentials on their own worker servers ala. CI/CD. Check their docs for more details.
 
-## Release channels
-
-When publishing the app to Expo or building a standalone app, you can choose the `release channel`. The default release channel will point the app to production (https://www.timeoverflow.org/) while the `staging` channel will point to staging (https://staging.timeoverflow.org/).
-
-To define the channel, use the `--release-channel` param while publishing or creating the standalone app:
+First, install the eas-cli:
 
 ```
-exp publish --release-channel staging
-exp build:android --release-channel staging
+$ npm install -g eas-cli
 ```
 
-In this case, the `staging` version of the app will be located at https://expo.io/@coopdevs/time-overflow?release-channel=staging while the default channel of the app (production) could be found at https://expo.io/@coopdevs/time-overflow.
+### Build profiles
 
-More info: https://docs.expo.io/versions/latest/distribution/release-channels.
+When publishing the app to Expo or building a standalone app, you can choose the `profile`. A build profile is a named group of configuration settings required to perform a specific type of build.
+
+If not provided, EAS cli will default to `production`, which points the app to production (https://www.timeoverflow.org/) while the `staging` channel will point to staging (https://staging.timeoverflow.org/).
+
+To define it, use the `--profile` param when building the app:
+
+```
+eas build --profile staging --platform android
+```
+
+or
+
+```
+eas build --profile production --platform android
+```
+
+You can read more about configuring builds at [Configuring EAS Build with eas.json](https://docs.expo.dev/build/eas-json/).
+
+You can conveniently list and access all the builds from https://expo.dev/accounts/coopdevs/projects/time-overflow/builds.
