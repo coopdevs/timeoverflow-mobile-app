@@ -1,66 +1,99 @@
-import React from 'react';
-import { WebView, BackHandler } from 'react-native';
-import { Constants, Notifications } from 'expo';
-import injectCustomJavaScript from './lib/injectCustomJavaScript';
+import React, { useState, useEffect, useRef } from 'react';
+import * as Notifications from "expo-notifications";
+import { StatusBar } from 'expo-status-bar';
+import { WebView } from 'react-native-webview';
+import registerForPushNotificationsAsync from './lib/pushNotifications';
+import { StyleSheet, BackHandler } from 'react-native';
+import Constants from "expo-constants";
 import handleExternalLinks from './lib/handleExternalLinks';
+import injectCustomJavaScript from './lib/injectCustomJavaScript.js';
+
+// matches the background color of the webapp's navbar
+const navbarStaticTopColor = "rgba(39,151,175,0.9)";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 const baseUrl = () => {
-  const { releaseChannel } = Expo.Constants.manifest;
+  console.log('extra.baseUrl =', Constants.expoConfig.extra.baseUrl);
+  return Constants.expoConfig.extra.baseUrl || "https://staging.timeoverflow.org";
+};
 
-  return (releaseChannel === 'staging') ?
-    'https://staging.timeoverflow.org' :
-    'https://www.timeoverflow.org';
-}
+export default function App() {
+  const [currentUrl, setCurrentUrl] = useState(baseUrl());
+  const [expoPushToken, setExpoPushToken] = useState("");
+  const responseListener = useRef();
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
+  const webViewRef = useRef(null);
 
-    this.state = { currentUrl: baseUrl() };
-  }
+  useEffect(() => {
+    const backAction = () => {
+      console.log("Back button pressed");
 
-  componentDidMount() {
-    this._notificationSubscription = Notifications.addListener(this.onReceiveNotification);
-    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
-  }
+      try {
+        webViewRef.current?.goBack();
+      } catch (err) {
+        console.log("[handleBackButtonPress] Error : ", err.message);
+      } finally {
+        return true; // eslint-disable-line no-unsafe-finally
+      }
+    };
 
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
-  }
+    const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
 
-  // Check the notification attributes:
-  // https://docs.expo.io/versions/latest/guides/push-notifications#notification-handling-timing
-  onReceiveNotification = (notification = {}) => {
-    if (notification.origin === 'selected') {
-      const { data } = notification;
+    return () => backHandler.remove();
+  }, []);
 
-      if (!data) return;
-      if (!data.url) return;
+  useEffect(() => {
+    const getToken = async () => {
+      const token = await registerForPushNotificationsAsync();
+      setExpoPushToken(token)
+    };
 
-      this.setState({ currentUrl: `${baseUrl()}${data.url}` });
-    }
-  }
+    getToken();
 
-  onNavigationStateChange = ({ url }) => {
-    injectCustomJavaScript(this.webview, url);
-    handleExternalLinks(this.webview, url)
-  }
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        console.log('content =', response.notification.request.content);
+        const { url } = response.notification.request.content.data;
+        setCurrentUrl(`${baseUrl()}${url}`);
+      });
 
-  onBackPress = () => {
-    this.webview.goBack();
+    return () => {
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
 
-    return true;
-  }
+  const handleStateChange = async (navState) => {
+    console.log('state change =', navState);
+    const { url } = navState;
 
-  render() {
-    return (
+    setCurrentUrl(url);
+    injectCustomJavaScript(webViewRef, expoPushToken, url);
+    await handleExternalLinks(url, webViewRef);
+  };
+
+  return (
+    <>
+      <StatusBar style="light" backgroundColor={navbarStaticTopColor} />
       <WebView
-        ref={ref => (this.webview = ref)}
-        source={{ uri: this.state.currentUrl }}
-        style={{marginTop: Constants.statusBarHeight}}
-        onNavigationStateChange={this.onNavigationStateChange}
+        ref={(ref) => (webViewRef.current = ref)}
+        style={styles.container}
+        source={{ uri: currentUrl }}
         scalesPageToFit={false}
+        onNavigationStateChange={handleStateChange}
       />
-    );
-  }
+    </>
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: Constants.statusBarHeight,
+  },
+});

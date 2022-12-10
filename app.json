@@ -3,24 +3,46 @@
     "name": "TimeOverflow",
     "description": "A time banking system.",
     "slug": "time-overflow",
-    "sdkVersion": "32.0.0",
-    "platforms": ["ios", "android"],
-    "version": "0.2.3",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/timeoverflow.png",
+    "userInterfaceStyle": "light",
     "privacy": "public",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "notification": {
+      "icon": "./assets/notifications.png"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/e867ef10-6745-11e8-ac81-d5d46762b275"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "org.timeoverflow.mobileapp"
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "package": "org.timeoverflow.mobileapp",
-      "versionCode": 8
+      "versionCode": 20
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e867ef10-6745-11e8-ac81-d5d46762b275"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
     }
   }
 }

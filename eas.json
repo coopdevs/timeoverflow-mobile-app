@@ -1,0 +1,27 @@
+{
+  "cli": {
+    "version": ">= 2.1.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "staging": {
+      "distribution": "internal",
+      "channel": "staging",
+      "env": {
+        "BASE_URL": "https://staging.timeoverflow.org"
+      }
+    },
+    "production": {
+      "channel": "production",
+      "env": {
+        "BASE_URL": "https://www.timeoverflow.org"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
