@@ -15,6 +15,7 @@
       }
     },
     "production": {
+      "distribution": "internal",
       "channel": "production",
       "env": {
         "BASE_URL": "https://www.timeoverflow.org"

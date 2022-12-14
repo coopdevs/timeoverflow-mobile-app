@@ -10,7 +10,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "expo": "~46.0.9",
+    "expo": "^47.0.8",
     "expo-device": "~4.3.0",
     "expo-notifications": "~0.16.1",
     "expo-status-bar": "~1.4.0",
