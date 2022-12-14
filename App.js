@@ -21,7 +21,7 @@ Notifications.setNotificationHandler({
 
 const baseUrl = () => {
   console.log('extra.baseUrl =', Constants.expoConfig.extra.baseUrl);
-  return Constants.expoConfig.extra.baseUrl || "https://staging.timeoverflow.org";
+  return Constants.expoConfig.extra.baseUrl || "https://www.timeoverflow.org";
 };
 
 export default function App() {

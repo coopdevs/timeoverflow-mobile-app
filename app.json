@@ -34,7 +34,7 @@
     "android": {
       "googleServicesFile": "./google-services.json",
       "package": "org.timeoverflow.mobileapp",
-      "versionCode": 20
+      "versionCode": 22
     },
     "extra": {
       "eas": {
