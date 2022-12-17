@@ -21,6 +21,8 @@ Notifications.setNotificationHandler({
 
 const baseUrl = () => {
   console.log('extra.baseUrl =', Constants.expoConfig.extra.baseUrl);
+  // While the staging and production profiles define a BASE_URL we need a
+  // default for development
   return Constants.expoConfig.extra.baseUrl || "https://staging.timeoverflow.org";
 };
 
