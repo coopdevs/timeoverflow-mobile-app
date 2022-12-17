@@ -33,7 +33,7 @@ module.exports = {
   android: {
     googleServicesFile: "./google-services.json",
     package: "org.timeoverflow.mobileapp",
-    versionCode: 20
+    versionCode: 23,
   },
   extra: {
     eas: {
