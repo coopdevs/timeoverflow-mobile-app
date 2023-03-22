@@ -16,9 +16,6 @@ module.exports = {
     resizeMode: "contain",
     backgroundColor: "#ffffff"
   },
-  notification: {
-    icon: "./assets/notifications.png"
-  },
   updates: {
     fallbackToCacheTimeout: 0,
     url: "https://u.expo.dev/e867ef10-6745-11e8-ac81-d5d46762b275"
