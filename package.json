@@ -10,14 +10,14 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "expo": "^48",
-    "expo-device": "~5.2.1",
-    "expo-notifications": "~0.18.1",
-    "expo-status-bar": "~1.4.2",
-    "expo-web-browser": "~12.1.1",
+    "expo": "^49.0.0",
+    "expo-device": "~5.4.0",
+    "expo-notifications": "~0.20.1",
+    "expo-status-bar": "~1.6.0",
+    "expo-web-browser": "~12.3.2",
     "react": "18.2.0",
-    "react-native": "0.71.14",
-    "react-native-webview": "11.26.0"
+    "react-native": "0.72.10",
+    "react-native-webview": "13.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
