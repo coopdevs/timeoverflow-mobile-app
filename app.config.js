@@ -43,5 +43,6 @@ module.exports = {
   },
   runtimeVersion: {
     policy: "sdkVersion"
-  }
+  },
+  newArchEnabled: true
 }
