@@ -6,7 +6,7 @@ module.exports = {
     "ios",
     "android"
   ],
-  version: "1.0.0",
+  version: "1.1.0",
   orientation: "portrait",
   icon: "./assets/timeoverflow.png",
   userInterfaceStyle: "light",
@@ -28,12 +28,13 @@ module.exports = {
   ],
   ios: {
     supportsTablet: true,
-    bundleIdentifier: "org.timeoverflow.mobileapp"
+    bundleIdentifier: "org.timeoverflow.mobileapp",
+    buildNumber: "1.1.0"
   },
   android: {
     googleServicesFile: "./google-services.json",
     package: "org.timeoverflow.mobileapp",
-    versionCode: 23,
+    versionCode: 24,
   },
   extra: {
     eas: {
