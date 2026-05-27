@@ -3,7 +3,7 @@ import * as Notifications from "expo-notifications";
 import { StatusBar } from 'expo-status-bar';
 import { WebView } from 'react-native-webview';
 import registerForPushNotificationsAsync from './lib/pushNotifications';
-import { StyleSheet, BackHandler } from 'react-native';
+import { StyleSheet, BackHandler, Linking } from 'react-native';
 import Constants from "expo-constants";
 import handleExternalLinks from './lib/handleExternalLinks';
 import injectCustomJavaScript from './lib/injectCustomJavaScript.js';
@@ -89,6 +89,14 @@ export default function App() {
         source={{ uri: currentUrl }}
         scalesPageToFit={false}
         onNavigationStateChange={handleStateChange}
+        onShouldStartLoadWithRequest={(request) => {
+          const { url } = request;
+          if (url.startsWith('http://') || url.startsWith('https://')) {
+            return true;
+          }
+          Linking.openURL(url);
+          return false;
+        }}
       />
     </>
   );
