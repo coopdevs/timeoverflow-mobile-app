@@ -105,6 +105,10 @@ export default function App() {
         source={{ uri: currentUrl }}
         scalesPageToFit={false}
         onNavigationStateChange={handleStateChange}
+        // Let every URL reach handleShouldStartLoad. With the default whitelist
+        // (http/https only) react-native-webview handles tel:/mailto: itself via
+        // Linking.canOpenURL, which returns false on Android 11+ and drops them.
+        originWhitelist={['*']}
         onShouldStartLoadWithRequest={handleShouldStartLoad}
       />
     </View>
