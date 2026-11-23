@@ -3,7 +3,7 @@ import * as Notifications from "expo-notifications";
 import { StatusBar } from 'expo-status-bar';
 import { WebView } from 'react-native-webview';
 import registerForPushNotificationsAsync from './lib/pushNotifications';
-import { StyleSheet, BackHandler, View } from 'react-native';
+import { StyleSheet, BackHandler, Linking, View } from 'react-native';
 import Constants from "expo-constants";
 import handleExternalLinks from './lib/handleExternalLinks';
 import injectCustomJavaScript from './lib/injectCustomJavaScript.js';
@@ -24,6 +24,21 @@ const baseUrl = () => {
   // While the staging and production profiles define a BASE_URL we need a
   // default for development
   return Constants.expoConfig.extra.baseUrl || "https://staging.timeoverflow.org";
+};
+
+// Schemes the WebView can't handle and that must be opened by the OS
+// (phone dialer, mail client, maps...). Anything else, including about:blank,
+// data: or blob: URLs used by iframes, keeps loading inside the WebView.
+const EXTERNAL_SCHEMES = /^(tel|mailto|sms|geo|whatsapp):/i;
+
+const handleShouldStartLoad = ({ url }) => {
+  if (EXTERNAL_SCHEMES.test(url)) {
+    Linking.openURL(url).catch((err) =>
+      console.log("[handleShouldStartLoad] Can't open", url, err.message)
+    );
+    return false;
+  }
+  return true;
 };
 
 export default function App() {
@@ -89,6 +104,7 @@ export default function App() {
         source={{ uri: currentUrl }}
         scalesPageToFit={false}
         onNavigationStateChange={handleStateChange}
+        onShouldStartLoadWithRequest={handleShouldStartLoad}
       />
     </View>
   );
