@@ -3,7 +3,7 @@ import * as Notifications from "expo-notifications";
 import { StatusBar } from 'expo-status-bar';
 import { WebView } from 'react-native-webview';
 import registerForPushNotificationsAsync from './lib/pushNotifications';
-import { StyleSheet, BackHandler } from 'react-native';
+import { StyleSheet, BackHandler, View } from 'react-native';
 import Constants from "expo-constants";
 import handleExternalLinks from './lib/handleExternalLinks';
 import injectCustomJavaScript from './lib/injectCustomJavaScript.js';
@@ -81,7 +81,7 @@ export default function App() {
   };
 
   return (
-    <>
+    <View style={styles.appContainer}>
       <StatusBar style="light" backgroundColor={navbarStaticTopColor} />
       <WebView
         ref={(ref) => (webViewRef.current = ref)}
@@ -90,11 +90,15 @@ export default function App() {
         scalesPageToFit={false}
         onNavigationStateChange={handleStateChange}
       />
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  appContainer: {
+    flex: 1,
+    backgroundColor: navbarStaticTopColor,
+  },
   container: {
     marginTop: Constants.statusBarHeight,
   },
