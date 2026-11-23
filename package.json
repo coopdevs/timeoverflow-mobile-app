@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "expo": "^55.0.16",
+    "expo-constants": "~55.0.15",
     "expo-dev-client": "~55.0.28",
     "expo-device": "~55.0.15",
     "expo-notifications": "~55.0.20",

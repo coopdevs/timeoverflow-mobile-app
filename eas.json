@@ -20,11 +20,22 @@
         "BASE_URL": "https://www.timeoverflow.org"
       },
       "android": {
-         "buildType": "apk"
+        "buildType": "app-bundle"
+      }
+    },
+    "production-apk": {
+      "extends": "production",
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
       }
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "android": {
+        "track": "internal"
+      }
+    }
   }
 }

@@ -13,7 +13,8 @@ const navbarStaticTopColor = "rgba(39,151,175,0.9)";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
-    shouldShowAlert: true,
+    shouldShowBanner: true,
+    shouldShowList: true,
     shouldPlaySound: false,
     shouldSetBadge: false,
   }),
@@ -67,7 +68,7 @@ export default function App() {
       });
 
     return () => {
-      Notifications.removeNotificationSubscription(responseListener.current);
+      responseListener.current?.remove();
     };
   }, []);
 

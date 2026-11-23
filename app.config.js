@@ -6,7 +6,7 @@ module.exports = {
     "ios",
     "android"
   ],
-  version: "1.1.0",
+  version: "1.2.0",
   orientation: "portrait",
   icon: "./assets/timeoverflow.png",
   userInterfaceStyle: "light",
@@ -29,12 +29,19 @@ module.exports = {
   ios: {
     supportsTablet: true,
     bundleIdentifier: "org.timeoverflow.mobileapp",
-    buildNumber: "1.1.0"
+    buildNumber: "1.2.0"
   },
   android: {
     googleServicesFile: "./google-services.json",
     package: "org.timeoverflow.mobileapp",
-    versionCode: 25,
+    versionCode: 26,
+    // Permissions added by default by Expo that this webview app doesn't need.
+    // Declaring them makes Google Play flag/restrict the app on some devices.
+    blockedPermissions: [
+      "android.permission.SYSTEM_ALERT_WINDOW",
+      "android.permission.READ_EXTERNAL_STORAGE",
+      "android.permission.WRITE_EXTERNAL_STORAGE"
+    ],
   },
   extra: {
     eas: {
