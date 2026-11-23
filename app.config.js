@@ -11,9 +11,6 @@ module.exports = {
   icon: "./assets/icon.png",
   userInterfaceStyle: "light",
   privacy: "public",
-  notification: {
-    icon: "./assets/notifications.png"
-  },
   updates: {
     fallbackToCacheTimeout: 0,
     url: "https://u.expo.dev/e867ef10-6745-11e8-ac81-d5d46762b275"
@@ -55,6 +52,14 @@ module.exports = {
     baseUrl: process.env.BASE_URL
   },
   plugins: [
+    [
+      "expo-notifications",
+      {
+        // Android only uses the alpha channel: white silhouette on transparent
+        icon: "./assets/notification-icon.png",
+        color: "#2A2D4C"
+      }
+    ],
     [
       "expo-splash-screen",
       {
