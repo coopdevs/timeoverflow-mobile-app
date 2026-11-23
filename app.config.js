@@ -8,14 +8,9 @@ module.exports = {
   ],
   version: "1.2.0",
   orientation: "portrait",
-  icon: "./assets/timeoverflow.png",
+  icon: "./assets/icon.png",
   userInterfaceStyle: "light",
   privacy: "public",
-  splash: {
-    image: "./assets/splash.png",
-    resizeMode: "contain",
-    backgroundColor: "#ffffff"
-  },
   notification: {
     icon: "./assets/notifications.png"
   },
@@ -37,6 +32,12 @@ module.exports = {
   },
   android: {
     googleServicesFile: "./google-services.json",
+    // Android 8+ masks launcher icons (circle, squircle...): keep the logo
+    // inside the safe zone on a background of the same color
+    adaptiveIcon: {
+      foregroundImage: "./assets/adaptive-icon.png",
+      backgroundColor: "#2A2D4C"
+    },
     package: "org.timeoverflow.mobileapp",
     versionCode: 26,
     // Permissions added by default by Expo that this webview app doesn't need.
@@ -53,6 +54,25 @@ module.exports = {
     },
     baseUrl: process.env.BASE_URL
   },
+  plugins: [
+    [
+      "expo-splash-screen",
+      {
+        image: "./assets/splash-icon.png",
+        imageWidth: 200,
+        resizeMode: "contain",
+        backgroundColor: "#ffffff",
+        // Android 12+ crops the splash icon to a circle: use a version with
+        // the logo shrunk inside a round-safe area
+        android: {
+          image: "./assets/splash-icon-android.png",
+          imageWidth: 200,
+          resizeMode: "contain",
+          backgroundColor: "#ffffff"
+        }
+      }
+    ]
+  ],
   runtimeVersion: {
     policy: "sdkVersion"
   },
