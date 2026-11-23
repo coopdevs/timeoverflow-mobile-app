@@ -26,6 +26,21 @@ const baseUrl = () => {
   return Constants.expoConfig.extra.baseUrl || "https://staging.timeoverflow.org";
 };
 
+// Schemes the WebView can't handle and that must be opened by the OS
+// (phone dialer, mail client, maps...). Anything else, including about:blank,
+// data: or blob: URLs used by iframes, keeps loading inside the WebView.
+const EXTERNAL_SCHEMES = /^(tel|mailto|sms|geo|whatsapp):/i;
+
+const handleShouldStartLoad = ({ url }) => {
+  if (EXTERNAL_SCHEMES.test(url)) {
+    Linking.openURL(url).catch((err) =>
+      console.log("[handleShouldStartLoad] Can't open", url, err.message)
+    );
+    return false;
+  }
+  return true;
+};
+
 export default function App() {
   const [currentUrl, setCurrentUrl] = useState(baseUrl());
   const [expoPushToken, setExpoPushToken] = useState("");
@@ -89,14 +104,7 @@ export default function App() {
         source={{ uri: currentUrl }}
         scalesPageToFit={false}
         onNavigationStateChange={handleStateChange}
-        onShouldStartLoadWithRequest={(request) => {
-          const { url } = request;
-          if (url.startsWith('http://') || url.startsWith('https://')) {
-            return true;
-          }
-          Linking.openURL(url);
-          return false;
-        }}
+        onShouldStartLoadWithRequest={handleShouldStartLoad}
       />
     </View>
   );
