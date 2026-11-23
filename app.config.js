@@ -29,7 +29,11 @@ module.exports = {
   ios: {
     supportsTablet: true,
     bundleIdentifier: "org.timeoverflow.mobileapp",
-    buildNumber: "1.2.0"
+    buildNumber: "1.2.0",
+    // Only standard HTTPS: skips the export compliance question on every upload
+    config: {
+      usesNonExemptEncryption: false
+    }
   },
   android: {
     googleServicesFile: "./google-services.json",
