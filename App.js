@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import * as Notifications from "expo-notifications";
 import { StatusBar } from 'expo-status-bar';
 import { WebView } from 'react-native-webview';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import registerForPushNotificationsAsync from './lib/pushNotifications';
 import { StyleSheet, BackHandler, Linking, View } from 'react-native';
 import Constants from "expo-constants";
@@ -42,7 +43,8 @@ const handleShouldStartLoad = ({ url }) => {
   return true;
 };
 
-export default function App() {
+function TimeOverflowWebView() {
+  const insets = useSafeAreaInsets();
   const [currentUrl, setCurrentUrl] = useState(baseUrl());
   const [expoPushToken, setExpoPushToken] = useState("");
   const responseListener = useRef();
@@ -97,7 +99,9 @@ export default function App() {
   };
 
   return (
-    <View style={styles.appContainer}>
+    // Android 15+ forces edge-to-edge: the app draws under the status bar and the
+    // navigation bar, so pad both with the system insets.
+    <View style={[styles.appContainer, { paddingTop: insets.top }]}>
       <StatusBar style="light" backgroundColor={navbarStaticTopColor} />
       <WebView
         ref={(ref) => (webViewRef.current = ref)}
@@ -111,7 +115,16 @@ export default function App() {
         originWhitelist={['*']}
         onShouldStartLoadWithRequest={handleShouldStartLoad}
       />
+      <View style={[styles.navigationBar, { height: insets.bottom }]} />
     </View>
+  );
+}
+
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <TimeOverflowWebView />
+    </SafeAreaProvider>
   );
 }
 
@@ -121,6 +134,9 @@ const styles = StyleSheet.create({
     backgroundColor: navbarStaticTopColor,
   },
   container: {
-    marginTop: Constants.statusBarHeight,
+    flex: 1,
+  },
+  navigationBar: {
+    backgroundColor: "#ffffff",
   },
 });
