@@ -35,7 +35,10 @@ const EXTERNAL_SCHEMES = /^(tel|mailto|sms|geo|whatsapp):/i;
 
 const handleShouldStartLoad = ({ url }) => {
   if (EXTERNAL_SCHEMES.test(url)) {
-    Linking.openURL(url).catch((err) =>
+    // The webapp renders phone links as "tel://123", which makes the dialer
+    // show "//123". Normalize to "tel:123" (same for sms:).
+    const externalUrl = url.replace(/^(tel|sms):\/\//i, "$1:");
+    Linking.openURL(externalUrl).catch((err) =>
       console.log("[handleShouldStartLoad] Can't open", url, err.message)
     );
     return false;
