@@ -72,4 +72,17 @@ eas build --profile production --platform android
 
 You can read more about configuring builds at [Configuring EAS Build with eas.json](https://docs.expo.dev/build/eas-json/).
 
+### Publishing to Google Play
+
+Google Play only accepts Android App Bundles (`.aab`), so the `production` profile
+builds an AAB. Bump `android.versionCode` in `app.config.js` before every release, then:
+
+```
+eas build --profile production --platform android
+eas submit --profile production --platform android
+```
+
+To get an installable APK pointing to production (for testing on a device), use
+the `production-apk` profile.
+
 You can conveniently list and access all the builds from https://expo.dev/accounts/coopdevs/projects/time-overflow/builds.

@@ -10,19 +10,22 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "expo": "^55.0.16",
-    "expo-dev-client": "~55.0.28",
-    "expo-device": "~55.0.15",
-    "expo-notifications": "~55.0.20",
-    "expo-status-bar": "~55.0.5",
-    "expo-web-browser": "~55.0.14",
-    "react": "19.2.0",
-    "react-native": "0.83.6",
-    "react-native-webview": "13.16.0"
+    "expo": "~58.0.26",
+    "expo-constants": "~58.0.16",
+    "expo-dev-client": "~58.0.21",
+    "expo-device": "~58.0.5",
+    "expo-notifications": "~58.1.9",
+    "expo-splash-screen": "~58.0.14",
+    "expo-status-bar": "~58.0.5",
+    "expo-web-browser": "~58.1.0",
+    "react": "19.3.0",
+    "react-native": "0.88.1",
+    "react-native-safe-area-context": "~5.11.1",
+    "react-native-webview": "14.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "babel-preset-expo": "^55.0.18",
+    "babel-preset-expo": "~58.0.26",
     "eslint": "^8.27.0",
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-unused-imports": "^2.0.0"
