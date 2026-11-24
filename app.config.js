@@ -6,7 +6,7 @@ module.exports = {
     "ios",
     "android"
   ],
-  version: "1.2.0",
+  version: "1.2.1",
   orientation: "portrait",
   icon: "./assets/icon.png",
   userInterfaceStyle: "light",
@@ -21,7 +21,7 @@ module.exports = {
   ios: {
     supportsTablet: true,
     bundleIdentifier: "org.timeoverflow.mobileapp",
-    buildNumber: "1.2.0",
+    buildNumber: "1.2.1",
     // Only standard HTTPS: skips the export compliance question on every upload
     config: {
       usesNonExemptEncryption: false
@@ -36,7 +36,7 @@ module.exports = {
       backgroundColor: "#2A2D4C"
     },
     package: "org.timeoverflow.mobileapp",
-    versionCode: 26,
+    versionCode: 27,
     // Permissions added by default by Expo that this webview app doesn't need.
     // Declaring them makes Google Play flag/restrict the app on some devices.
     blockedPermissions: [
@@ -52,6 +52,7 @@ module.exports = {
     baseUrl: process.env.BASE_URL
   },
   plugins: [
+    "./plugins/withOptionalHardwareFeatures",
     [
       "expo-notifications",
       {
